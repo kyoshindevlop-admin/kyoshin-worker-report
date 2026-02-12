@@ -4,7 +4,7 @@ const CONFIG = {
   GAS_API_URL: "https://script.google.com/macros/s/AKfycbzVCaTeUa1bNEhORgbi1qzJBM3mYxV1HO7-Ak0cvEoSbLH6zIAcQ41okseYLikuqr6Qmg/exec", // https://script.google.com/macros/s/.../exec
   OT_STEP: 0.5,
 };
-
+console.log("CONFIG.LIFF_ID=", CONFIG.LIFF_ID);
 /* ========= 状態 ========= */
 let S = {
   idToken: "",
