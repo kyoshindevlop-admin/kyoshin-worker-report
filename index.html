@@ -2,35 +2,16 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>協進建設 日報（職人）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LINE日報</title>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="card">
-    <div class="title">日報（職人）</div>
-    <div class="muted" id="status">起動中…</div>
-    <div class="err" id="err"></div>
-  </div>
-
-  <div class="card" id="form" style="display:none">
-    <label class="muted">現場</label>
-    <input id="site" placeholder="例：現場名（まずは自由入力）" />
-
-    <label class="muted">作業内容</label>
-    <input id="work" placeholder="例：建方 / 本締め / タッチアップ" />
-
-    <button class="btn" id="send">送信</button>
-    <div class="muted" id="sending" hidden>送信中…</div>
-  </div>
-
-  <div class="card">
-    <details>
-      <summary>診断（トラブル時に開いてスクショ）</summary>
-      <pre id="diag"></pre>
-    </details>
-  </div>
+  <div id="status">起動中…</div>
+  <input id="site" placeholder="現場" />
+  <input id="work" placeholder="作業内容" />
+  <button id="send">送信</button>
+  <pre id="log"></pre>
 
   <script src="./app.js"></script>
 </body>
