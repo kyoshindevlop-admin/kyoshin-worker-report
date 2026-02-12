@@ -5,6 +5,7 @@ const CONFIG = {
   OT_STEP: 0.5,
 };
 console.log("CONFIG.LIFF_ID=", CONFIG.LIFF_ID);
+document.getElementById("who").textContent = "LIFF_ID=" + CONFIG.LIFF_ID;
 /* ========= 状態 ========= */
 let S = {
   idToken: "",
