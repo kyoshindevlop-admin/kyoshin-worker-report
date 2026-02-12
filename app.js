@@ -4,8 +4,6 @@ const CONFIG = {
   GAS_API_URL: "https://script.google.com/macros/s/AKfycbzVCaTeUa1bNEhORgbi1qzJBM3mYxV1HO7-Ak0cvEoSbLH6zIAcQ41okseYLikuqr6Qmg/exec", // https://script.google.com/macros/s/.../exec
   OT_STEP: 0.5,
 };
-console.log("CONFIG.LIFF_ID=", CONFIG.LIFF_ID);
-document.getElementById("who").textContent = "LIFF_ID=" + CONFIG.LIFF_ID;
 /* ========= 状態 ========= */
 let S = {
   idToken: "",
@@ -69,6 +67,13 @@ async function boot(){
 
   $("workDate").value = todayYmd();
 
+  // ★ ここから追加
+  $("who").textContent = `DEBUG: LIFF_ID=${CONFIG.LIFF_ID}`;
+  msg(`DEBUG: GAS=${CONFIG.GAS_API_URL}`);
+  // ★ ここまで追加
+
+
+  
   await liff.init({ liffId: CONFIG.LIFF_ID });
 
   if (!liff.isLoggedIn()) {
