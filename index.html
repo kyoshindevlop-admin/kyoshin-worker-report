@@ -3,15 +3,100 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LINE日報</title>
+  <title>協進 LINE日報</title>
+  <link rel="stylesheet" href="./style.css" />
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
-  <div id="status">起動中…</div>
-  <input id="site" placeholder="現場" />
-  <input id="work" placeholder="作業内容" />
-  <button id="send">送信</button>
-  <pre id="log"></pre>
+  <div class="wrap">
+    <header class="card">
+      <div class="title">協進 LINE日報</div>
+      <div id="who" class="muted"></div>
+      <div id="msg" class="msg" style="display:none"></div>
+    </header>
+
+    <section id="loading" class="card">
+      <div class="muted">起動中…</div>
+    </section>
+
+    <section id="notRegistered" class="card" style="display:none">
+      <div class="title">未登録のため利用できません</div>
+      <p class="muted">下のIDを会社へ報告してください（社員マスタに紐付け後、再度開けます）。</p>
+      <div class="code" id="lineUserId"></div>
+      <button id="copyBtn" class="btn">IDをコピー</button>
+      <button id="closeBtn" class="btn2">閉じる</button>
+    </section>
+
+    <section id="form" class="card" style="display:none">
+      <label>作業日</label>
+      <input id="workDate" type="date" />
+
+      <label>顧客名</label>
+      <select id="customerSelect"></select>
+
+      <label>現場名</label>
+      <select id="siteSelect"></select>
+
+      <label>作業内容</label>
+      <textarea id="workContent" rows="3" placeholder="例：建方／本締め／デッキ など"></textarea>
+
+      <div class="row">
+        <button id="draftBtn" class="btn2">下書き保存</button>
+        <button id="nextBtn" class="btn">OK</button>
+      </div>
+    </section>
+
+    <section id="initChoice" class="card" style="display:none">
+      <div class="title">前回の情報を引き継ぎますか？</div>
+      <div class="muted" id="lastSummary"></div>
+      <div class="row">
+        <button id="inheritBtn" class="btn">引き継ぐ</button>
+        <button id="newBtn" class="btn2">新規</button>
+      </div>
+    </section>
+
+    <section id="detail" class="card" style="display:none">
+      <div class="title">人数入力</div>
+
+      <div class="title2">自社（社員）</div>
+      <div id="empList"></div>
+
+      <div class="row top">
+        <label class="inline"><input type="checkbox" id="hasPartners"> 協力会社あり</label>
+      </div>
+
+      <div id="partnerArea" style="display:none">
+        <div class="title2">協力会社</div>
+        <div id="partnerList"></div>
+      </div>
+
+      <div class="row top">
+        <label class="inline"><input type="checkbox" id="hasReden"> 赤伝あり</label>
+      </div>
+
+      <div id="redenArea" style="display:none">
+        <div class="title2">赤伝明細（後で肉付け）</div>
+        <div class="muted">※現段階は「あり/なし」だけ保存。明細・署名は次実装で追加。</div>
+      </div>
+
+      <div class="row">
+        <button id="backBtn" class="btn2">戻る</button>
+        <button id="confirmBtn" class="btn">確認へ</button>
+      </div>
+    </section>
+
+    <section id="confirm" class="card" style="display:none">
+      <div class="title">確認</div>
+      <pre id="confirmBox" class="pre"></pre>
+
+      <div class="row">
+        <button id="fixBtn" class="btn2">修正</button>
+        <button id="submitBtn" class="btn">登録（確定）</button>
+      </div>
+    </section>
+
+    <footer class="muted small">© 協進建設</footer>
+  </div>
 
   <script src="./app.js"></script>
 </body>
