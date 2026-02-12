@@ -1,5 +1,5 @@
-const LIFF_ID = "あなたのLIFF_ID";
-const GAS_URL = "あなたのGAS /exec URL";
+const LIFF_ID = "2009106846-kM1wF0eU";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzVCaTeUa1bNEhORgbi1qzJBM3mYxV1HO7-Ak0cvEoSbLH6zIAcQ41okseYLikuqr6Qmg/exec";
 
 const $ = (id) => document.getElementById(id);
 const log = (s) => ($("log").textContent += s + "\n");
