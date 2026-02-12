@@ -1,7 +1,7 @@
 /* ========= 設定 ========= */
 const CONFIG = {
-  LIFF_ID: "PUT_YOUR_LIFF_ID",
-  GAS_API_URL: "PUT_YOUR_GAS_WEBAPP_EXEC_URL", // https://script.google.com/macros/s/.../exec
+  LIFF_ID: "2009106846-kM1wF0eU",
+  GAS_API_URL: "https://script.google.com/macros/s/AKfycbzVCaTeUa1bNEhORgbi1qzJBM3mYxV1HO7-Ak0cvEoSbLH6zIAcQ41okseYLikuqr6Qmg/exec", // https://script.google.com/macros/s/.../exec
   OT_STEP: 0.5,
 };
 
