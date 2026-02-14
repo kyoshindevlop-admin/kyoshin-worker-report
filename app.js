@@ -53,9 +53,11 @@ async function boot() {
   try {
     const pong = await pingGas();
     if (pong.ok) {
-      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:${pong.gasTime}）`;
-    } else {
-      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:応答NG）`;
+      $("status").textContent =
+        `起動中…（Front:${FRONT_BUILD} / GAS:${pong.scriptLastUpdated}）`;
+    }
+    else {
+          $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:応答NG）`;
     }
   } catch (e) {
     $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:到達不可）`;
