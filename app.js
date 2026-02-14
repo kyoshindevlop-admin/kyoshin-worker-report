@@ -43,6 +43,19 @@ async function api(action, payload = {}) {
 async function boot() {
   // ↓更新確認用
   $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
+  try {
+    const pong = await pingGas();
+    if (pong.ok) {
+      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:${pong.gasTime}）`;
+    } else {
+      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:応答NG）`;
+    }
+  } catch (e) {
+    $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:到達不可）`;
+    log("PING ERR=", e?.message || e);
+  }
+
+  $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
   log("Front build=", FRONT_BUILD);
   // ↑更新確認用
   
@@ -107,6 +120,8 @@ async function boot() {
 }
 
 boot().catch(e => {
-  $("status").textContent = "エラー: " + (e?.message || e);
+  const now = new Date().toISOString();
+  $("status").textContent = `エラー（${now} / Front:${FRONT_BUILD}）: ` + (e?.message || e);
   log("ERR=", e?.stack || e);
 });
+;
