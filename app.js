@@ -1,4 +1,4 @@
-const FRONT_BUILD = "AAA"; // 更新確認用
+const FRONT_BUILD = "BBB"; // 更新確認用
 async function pingGas() {
   // ★キャッシュ回避（クエリに時刻を付ける）
   const url = CONFIG.GAS_API_URL + "?t=" + Date.now();
