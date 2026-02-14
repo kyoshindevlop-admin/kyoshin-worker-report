@@ -43,7 +43,38 @@ async function api(action, payload = {}) {
   if (!json.ok) throw new Error(json.message || "APIエラー");
   return json;
 }
+async function boot() {
+  // ver表示（DOMが無いケースでも落ちないように）
+  const appverEl = document.getElementById("appver");
+  if (appverEl) appverEl.textContent = `ver ${APP_VERSION}`;
 
+  // ↓ 更新確認用（ここが原因になりやすいので安全に）
+  $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
+
+  let pong = null; // ★ここ重要：tryの外で宣言
+
+  try {
+    pong = await pingGas();
+    if (pong && pong.ok) {
+      // gasTime を出す（doGetがJSON返す前提）
+      const gasStr = pong.gasTime || pong.scriptLastUpdated || "OK";
+      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:${gasStr}）`;
+    } else {
+      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:応答NG）`;
+    }
+  } catch (e) {
+    $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:到達不可）`;
+    log("PING ERR=", e?.message || e);
+  }
+  // ↑ 更新確認用ここまで
+
+  $("diag").textContent = "";
+  $("status").textContent = "LIFF初期化中…";
+  ...
+}
+
+
+/*
 async function boot() {
   // const v = document.getElementById("appver");
   // if (v) v.textContent = `ver ${APP_VERSION}`;
@@ -145,7 +176,7 @@ async function boot() {
     }
   };
 }
-
+*/
 boot().catch(e => {
   const now = new Date().toISOString();
   $("status").textContent = `エラー（${now} / Front:${FRONT_BUILD}）: ` + (e?.message || e);
