@@ -83,6 +83,22 @@ async function boot() {
   log("inClient=", liff.isInClient());
 
   const idToken = liff.getIDToken();
+  $("whoami").onclick = async () => {
+    $("status").textContent = "whoami中…";
+    try {
+      const r = await api("whoami", { idToken });
+      $("whoamiOut").textContent = `LINE_userId: ${r.lineUserId} / name: ${r.name}`;
+      $("status").textContent = "whoami完了";
+    } catch (e) {
+      $("whoamiOut").textContent = "whoami失敗: " + (e?.message || e);
+      $("status").textContent = "whoami失敗";
+    }
+  };
+
+
+
+
+  
   if (!idToken) throw new Error("NO_ID_TOKEN（scope openid必要）");
 
   $("boot").onclick = async () => {
