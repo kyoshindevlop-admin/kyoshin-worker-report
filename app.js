@@ -49,7 +49,9 @@ async function boot() {
   // if (v) v.textContent = `ver ${APP_VERSION}`;
 
   // ↓更新確認用
-  $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
+  $("status").textContent =
+  `Front:${FRONT_BUILD} / GAS更新:${pong.gasLastUpdated}`;
+
   try {
     const pong = await pingGas();
     if (pong.ok) {
