@@ -72,7 +72,7 @@ async function boot() {
   $("status").textContent = "LIFF初期化中…";
   ...
 }
-
+console.log("GAS_BUILD=", res.gasBuild)
 
 /*
 async function boot() {
