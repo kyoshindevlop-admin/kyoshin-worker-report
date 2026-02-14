@@ -1,15 +1,7 @@
 const FRONT_BUILD = "test"; // 更新確認用
 const APP_VERSION = "1.2.0"; // ★ここだけ更新
 
-async function pingGas() {
-  // ★キャッシュ回避（クエリに時刻を付ける）
-  const url = CONFIG.GAS_API_URL + "?t=" + Date.now();
-  const res = await fetch(url, { method: "GET" });
-  const text = await res.text();
-  log("PING RAW=", text);
-  try { return JSON.parse(text); } catch { return { ok:false, raw:text }; }
-}
-// ↑更新用
+
 
 
 const CONFIG = {
@@ -34,16 +26,20 @@ async function api(action, payload = {}) {
   });
 
   const text = await res.text();
-  console.log("[BUILD]", {
-    front: APP_VERSION + "/" + FRONT_BUILD,
-    gas: data.gasBuild
-  });
+
   log("RAW=", text);
 
   let json;
   try { json = JSON.parse(text); }
   catch { throw new Error("JSONパース失敗: " + text.slice(0, 200)); }
+  // ★ここが「受信後」：json ができたので gasBuild が見える
+  console.log("[BUILD]", {
+    front: APP_VERSION + "/" + FRONT_BUILD,
+    gas: json.gasBuild || "(no gasBuild)",
+    action,
+  });
 
+  
   if (!json.ok) throw new Error(json.message || "APIエラー");
   return json;
 }
@@ -51,27 +47,7 @@ async function boot() {
   // ver表示（DOMが無いケースでも落ちないように）
   const appverEl = document.getElementById("appver");
   if (appverEl) appverEl.textContent = `ver ${APP_VERSION}`;
-
-  // ↓ 更新確認用（ここが原因になりやすいので安全に）
-  $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
-
-  let pong = null; // ★ここ重要：tryの外で宣言
-
-  try {
-    pong = await pingGas();
-    if (pong && pong.ok) {
-      // gasTime を出す（doGetがJSON返す前提）
-      const gasStr = pong.gasTime || pong.scriptLastUpdated || "OK";
-      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:${gasStr}）`;
-    } else {
-      $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:応答NG）`;
-    }
-  } catch (e) {
-    $("status").textContent = `起動中…（Front:${FRONT_BUILD} / GAS:到達不可）`;
-    log("PING ERR=", e?.message || e);
-  }
-  // ↑ 更新確認用ここまで
-
+  
   $("diag").textContent = "";
   $("status").textContent = "LIFF初期化中…";
   ...
