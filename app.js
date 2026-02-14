@@ -1,3 +1,5 @@
+const FRONT_BUILD = "AAA"; // 更新確認用
+
 const CONFIG = {
   LIFF_ID: "2009106846-kM1wF0eU",
   GAS_API_URL: "https://script.google.com/macros/s/AKfycbzVCaTeUa1bNEhORgbi1qzJBM3mYxV1HO7-Ak0cvEoSbLH6zIAcQ41okseYLikuqr6Qmg/exec",
@@ -29,6 +31,11 @@ async function api(action, payload = {}) {
 }
 
 async function boot() {
+  // ↓更新確認用
+  $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
+  log("Front build=", FRONT_BUILD);
+  // ↑更新確認用
+  
   $("diag").textContent = "";
   $("status").textContent = "LIFF初期化中…";
   log("url=", location.href);
