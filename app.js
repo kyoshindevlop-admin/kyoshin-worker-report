@@ -1,4 +1,6 @@
 const FRONT_BUILD = "BBB"; // 更新確認用
+const APP_VERSION = "1.2.0"; // ★ここだけ更新
+
 async function pingGas() {
   // ★キャッシュ回避（クエリに時刻を付ける）
   const url = CONFIG.GAS_API_URL + "?t=" + Date.now();
@@ -41,6 +43,8 @@ async function api(action, payload = {}) {
 }
 
 async function boot() {
+  document.getElementById("appver").textContent = `ver ${APP_VERSION}`;
+
   // ↓更新確認用
   $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
   try {
