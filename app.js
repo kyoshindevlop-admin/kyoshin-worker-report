@@ -1,4 +1,14 @@
 const FRONT_BUILD = "AAA"; // 更新確認用
+async function pingGas() {
+  // ★キャッシュ回避（クエリに時刻を付ける）
+  const url = CONFIG.GAS_API_URL + "?t=" + Date.now();
+  const res = await fetch(url, { method: "GET" });
+  const text = await res.text();
+  log("PING RAW=", text);
+  try { return JSON.parse(text); } catch { return { ok:false, raw:text }; }
+}
+// ↑更新用
+
 
 const CONFIG = {
   LIFF_ID: "2009106846-kM1wF0eU",
