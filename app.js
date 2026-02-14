@@ -1,4 +1,4 @@
-const FRONT_BUILD = "BBB"; // 更新確認用
+const FRONT_BUILD = "CCC"; // 更新確認用
 const APP_VERSION = "1.2.0"; // ★ここだけ更新
 
 async function pingGas() {
