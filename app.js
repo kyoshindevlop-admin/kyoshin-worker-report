@@ -34,6 +34,10 @@ async function api(action, payload = {}) {
   });
 
   const text = await res.text();
+  console.log("[BUILD]", {
+    front: APP_VERSION + "/" + FRONT_BUILD,
+    gas: data.gasBuild
+  });
   log("RAW=", text);
 
   let json;
@@ -72,7 +76,6 @@ async function boot() {
   $("status").textContent = "LIFF初期化中…";
   ...
 }
-console.log("GAS_BUILD=", res.gasBuild)
 
 /*
 async function boot() {
