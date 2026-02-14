@@ -20,9 +20,11 @@ const CONFIG = {
 const $ = (id) => document.getElementById(id);
 const log = (...args) => {
   const s = args.map(a => (typeof a === "string" ? a : JSON.stringify(a))).join(" ");
-  $("diag").textContent += s + "\n";
+  const diag = $("diag");
+  if (diag) diag.textContent += s + "\n"; // ←ここがポイント
   console.log(...args);
 };
+
 
 async function api(action, payload = {}) {
   const res = await fetch(CONFIG.GAS_API_URL, {
@@ -43,7 +45,8 @@ async function api(action, payload = {}) {
 }
 
 async function boot() {
-  document.getElementById("appver").textContent = `ver ${APP_VERSION}`;
+  // const v = document.getElementById("appver");
+  // if (v) v.textContent = `ver ${APP_VERSION}`;
 
   // ↓更新確認用
   $("status").textContent = `起動中…（Front:${FRONT_BUILD}）`;
