@@ -128,4 +128,11 @@ boot().catch(e => {
   $("status").textContent = `エラー（${now} / Front:${FRONT_BUILD}）: ` + (e?.message || e);
   log("ERR=", e?.stack || e);
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.getElementById("appver");
+  if (el) {
+    el.textContent = `ver ${APP_VERSION}`;
+  }
+});
+
 ;
