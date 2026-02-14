@@ -1,4 +1,4 @@
-const FRONT_BUILD = "DDD"; // 更新確認用
+const FRONT_BUILD = "E"; // 更新確認用
 const APP_VERSION = "1.2.0"; // ★ここだけ更新
 
 async function pingGas() {
